@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Card, Button } from 'react-native-elements';
+import { Card, Button, Header } from 'react-native-elements';
 import Deck from './src/Deck';
 
 
@@ -22,7 +22,7 @@ export default class App extends Component {
     return(
       <Card title="All Done!">
         <Text style={{ marginBottom: 10}}>
-          There are no more cards 
+          There are no more cards
           </Text>
         <Button
         backgroundColor="red"
@@ -34,6 +34,7 @@ export default class App extends Component {
 
   renderCard(item) {
     return (
+
       <Card
         key={item.id}
         title={item.text}
@@ -56,7 +57,16 @@ export default class App extends Component {
     return (
 
       <View style={styles.container}>
-
+        <Header
+        leftComponent={{ icon: 'menu', color: '#fff' }}
+        centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+        rightComponent={{ icon: 'home', color: '#fff' }}
+        />
+        <View style={{ marginTop: 20, alignItems: 'center'}}>
+            <Text style={{ fontSize: 30}}>
+                Swipe left to say no, swipe right to say yes
+            </Text>
+        </View>
         <Deck
           data={DATA}
           renderCard={this.renderCard}
@@ -69,7 +79,7 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 18
+
 
   },
 }

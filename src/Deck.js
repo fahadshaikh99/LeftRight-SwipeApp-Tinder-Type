@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Animated, PanResponder, Dimensions } from 'react-native';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH;
@@ -15,6 +15,7 @@ class Deck extends Component {
 
     constructor(props) {
         super(props);
+        
         const position = new Animated.ValueXY();
         const panResponder = PanResponder.create({
             onStartShouldSetPanResponder: () => true,
@@ -24,13 +25,17 @@ class Deck extends Component {
 
 
             },
-            onPanResponderRelease: (event, gesture) => { 
+            onPanResponderRelease: (event, gesture) => {
 
                 if ( gesture.dx > SWIPE_THRESHOLD ) {
                     this.forceSwipe('right');
+                    this.LikeFunc('right');
+                    console.log('Right');
                 }
                 else if (gesture.dx < -SWIPE_THRESHOLD ) {
                     this.forceSwipe('left');
+                    this.LikeFunc('left');
+                    console.log('Left');
                 }
                 else {
 
@@ -49,16 +54,21 @@ class Deck extends Component {
         });
         return {
             ...this.state.position.getLayout(),
-            transform: [{ rotate }] 
+            transform: [{ rotate }]
         };
+    }
+
+    LikeFunc(direction) {
+        const move = direction === 'right' ? 'Love' : 'not love';
+        console.log(move)
     }
 
     forceSwipe(direction) {
 
-        const x = direction === 'right' ? SCREEN_WIDTH : -SCREEN_WIDTH; 
+        const x = direction === 'right' ? SCREEN_WIDTH : -SCREEN_WIDTH;
 
         Animated.timing(this.state.position, {
-       
+
             toValue: { x , y: 0},
             duration: SWIPE_OUT_DURATION
         }).start(() => this.onSwipeComplete(direction));
@@ -72,7 +82,7 @@ class Deck extends Component {
         direction === 'right' ? onSwipeRight(item) : onSiwpeLeft(item);
     }
 
-    
+
 
     resetPosition() {
         Animated.spring(this.state.position, {
@@ -98,9 +108,10 @@ class Deck extends Component {
                     </Animated.View>
 
                 );
+
             }
 
-            return ( 
+            return (
                 <View key={item.id} style={styles.cardStyle}>
                 {this.props.renderCard(item)}
                 </View>
@@ -109,10 +120,13 @@ class Deck extends Component {
     }
 
     render() {
+
         return (
             <View>
                 {this.renderCard()}
+
             </View>
+
         );
     }
 }
