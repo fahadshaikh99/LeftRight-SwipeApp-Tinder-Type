@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Animated, PanResponder, Dimensions } from 'react-native';
 import { View, Text } from 'react-native';
+import LottieView from 'lottie-react-native';
+
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH;
@@ -15,7 +17,9 @@ class Deck extends Component {
 
     constructor(props) {
         super(props);
-        
+        this.state = {
+            progress: new Animated.Value(0),
+          };
         const position = new Animated.ValueXY();
         const panResponder = PanResponder.create({
             onStartShouldSetPanResponder: () => true,
@@ -46,6 +50,7 @@ class Deck extends Component {
         this.state = { panResponder, position, index: 0 };
     }
 
+
     getCardStyle() {
         const { position } = this.state
         const rotate = position.x.interpolate({
@@ -59,8 +64,9 @@ class Deck extends Component {
     }
 
     LikeFunc(direction) {
-        const move = direction === 'right' ? 'Love' : 'not love';
+        const move = direction === 'right' ? 'love' : 'notlove';
         console.log(move)
+        this.setState({myKey: move});
     }
 
     forceSwipe(direction) {
@@ -71,6 +77,7 @@ class Deck extends Component {
 
             toValue: { x , y: 0},
             duration: SWIPE_OUT_DURATION
+            
         }).start(() => this.onSwipeComplete(direction));
     }
 
@@ -119,12 +126,45 @@ class Deck extends Component {
         }).reverse();
     }
 
+    
+ 
+
     render() {
 
         return (
-            <View>
+            <View style={{ flex: 1}}>
+                <View>
                 {this.renderCard()}
+                </View>
 
+                
+                {this.state.myKey ==  'love' ? (
+                <View style={{ flex: 1}}>
+                    <LottieView
+                        style={{ marginTop: 20}}
+                        source={require('../assets/LottieHeart.json')}
+                        colorFilters={[{
+                        keypath: "button",
+                        color: "#F00000"
+                        },{
+                        keypath: "Sending Loader",
+                        color: "#F00000"
+                        }]}
+                        loop
+                        autoPlay
+                        
+                        
+                    />
+                </View>
+
+                 ) : ( 
+
+                <View style={{ fontSize: 70}}>
+                    <Text style={{ fontSize: 70}}></Text>
+                </View>
+
+                 )}
+                
             </View>
 
         );
@@ -136,7 +176,17 @@ const styles = {
         position: 'absolute',
         width: SCREEN_WIDTH,
         zIndex: 1
-    }
+    },
+        animationContainer: {
+          backgroundColor: '#fff',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flex: 1,
+        },
+        buttonContainer: {
+          paddingTop: 20,
+        },
+      
 };
 
 
