@@ -18,6 +18,7 @@ class Deck extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            myKey: '',
             progress: new Animated.Value(0),
           };
         const position = new Animated.ValueXY();
@@ -119,9 +120,9 @@ class Deck extends Component {
             }
 
             return (
-                <View key={item.id} style={styles.cardStyle}>
+                <Animated.View key={item.id} style={styles.cardStyle}>
                 {this.props.renderCard(item)}
-                </View>
+                </Animated.View>
         );
         }).reverse();
     }
@@ -152,17 +153,53 @@ class Deck extends Component {
                         }]}
                         loop
                         autoPlay
+                    />
+                </View>
+
+                 ) : ( 
+                    <View>
+                    </View>
+                // <View style={{ flex: 1}}>
+                //     <LottieView
+                //         style={{ marginTop: 20}}
+                //         source={require('../assets/notHeart.json')}
+                //         colorFilters={[{
+                //         keypath: "button",
+                //         color: "#F00000"
+                //         },{
+                //         keypath: "Sending Loader",
+                //         color: "#F00000"
+                //         }]}
+                //         loop
+                //         autoPlay
+                        
+                        
+                //     />
+                // </View>
+
+                 )}
+
+                {this.state.myKey ==  'notlove' ? (
+                 <View style={{ flex: 1}}>
+                    <LottieView
+                        style={{ marginTop: 20}}
+                        source={require('../assets/notHeart.json')}
+                        colorFilters={[{
+                        keypath: "button",
+                        color: "#F00000"
+                        },{
+                        keypath: "Sending Loader",
+                        color: "#F00000"
+                        }]}
+                        loop
+                        autoPlay
                         
                         
                     />
                 </View>
 
                  ) : ( 
-
-                <View style={{ fontSize: 70}}>
-                    <Text style={{ fontSize: 70}}></Text>
-                </View>
-
+                    <View></View>
                  )}
                 
             </View>
