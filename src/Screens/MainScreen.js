@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Modal } from 'react-native';
 import { Card, Button, Header } from 'react-native-elements';
 import Deck from '../Components/Deck';
-import ProfileScreen from './ProfileScreen';
+
 
 
 console.disableYellowBox = true
@@ -71,9 +71,11 @@ const MainScreen = () => {
 
         <View style={styles.container}>
           <View style={{ marginTop: 20, alignItems: 'center'}}>
+            <View style={{ marginHorizontal: '4%'}}>
               <Text style={{ fontSize: 30}}>
                   Swipe left to say no, swipe right to say yes
               </Text>
+            </View>
           </View>
           <Deck
             data={DATA}
