@@ -143,7 +143,7 @@ class Deck extends Component {
                 <View style={{ flex: 1}}>
                     <LottieView
                         style={{ marginTop: 20}}
-                        source={require('../assets/LottieHeart.json')}
+                        source={require('../../assets/LottieHeart.json')}
                         colorFilters={[{
                         keypath: "button",
                         color: "#F00000"
@@ -183,7 +183,7 @@ class Deck extends Component {
                  <View style={{ flex: 1}}>
                     <LottieView
                         style={{ marginTop: 20}}
-                        source={require('../assets/notHeart.json')}
+                        source={require('../../assets/notHeart.json')}
                         colorFilters={[{
                         keypath: "button",
                         color: "#F00000"
